@@ -1,0 +1,14 @@
+extends layout
+
+block content
+  div(id="header")
+    div.container
+      div.row
+        div.col-xs-2
+          img(src="images/twitter.png" class="img img-responsive")
+        div.col-xs-7
+          h1(id="titulo_view") HashtagTools
+          input(type="search" id="fishtweet" class="form-control")
+        div.col-xs-3
+          img(src=image_user)
+          p(style="font-size:1.3em;display:inline-block;")=name_user
