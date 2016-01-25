@@ -12,7 +12,7 @@ mysql       = require('mysql');
 var passport = require('passport');
 var TwitterStrategy = require('passport-twitter').Strategy;
 
-server.listen(3000);
+server.listen(process.env.PORT);
 
 /*Configuraciones de la aplicación*/ 
 app.use(express.static(path.join(__dirname, 'public')));
