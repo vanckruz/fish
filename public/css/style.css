@@ -1,3 +1,10 @@
+
+@media (max-width: 750px) {
+  #titulo_view {
+    font-size:1.5em !important;
+  }
+  }
+
 html,body{
 	margin:0;
 	padding: 0;
@@ -9,13 +16,38 @@ a {
 }
 
 body{
-	background: #f1f1f1 !important;
+	/*background: url('/img/planeta.jpg') !important;*/
+	background: url('/img/twitter_logo_bg.jpg') no-repeat;
+	background-attachment:fixed;
 }
+
+#buscador_global:focus{
+	background: rgba(255,255,255,0.8) !important;
+}
+
+.inner-addon { 
+	position: relative; 
+}
+
+/* style icon */
+.inner-addon .glyphicon {
+	position: absolute;
+	padding: 10px;
+	pointer-events: none;
+}
+
+/* align icon */
+.left-addon .glyphicon  { left:  0px;}
+.right-addon .glyphicon { right: 0px;}
+
+/* add padding  */
+.left-addon input  { padding-left:  30px; }
+.right-addon input { padding-right: 30px; }
 
 #header{
 	width: 100%;
 	padding: 1em;
-	background: #55acee;
+	background: rgba(85, 172, 238, 0.95);
 }
 
 #titulo_view{
@@ -37,3 +69,4 @@ body{
 	color:#001;
 	background:rgba(255,255,255,1);
 }
+

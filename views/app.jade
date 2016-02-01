@@ -1,14 +1,84 @@
 extends layout
 
 block content
-  div(id="header")
+  body
+    div(id="header")
+      div.container
+        div.row
+          div.col-xs-2
+            img(src="/img/twitter.png" class="img img-responsive")
+          div.col-xs-7
+            h1(id="titulo_view" style="font-family: 'Metrophobic', Arial, serif !important;font-weight:800;font-style: italic;font-size:3.5em;") #HashtagTools
+            .inner-addon.left-addon
+              i.glyphicon.glyphicon-search(style="font-size:1.8em;color:#555;")
+              input#buscador_global(type="search" class="form-control" style="padding:1.2em;font-size:1.5em;text-indent:1.5em;border:none;background:#3b89c3;transition: all 0.50s;-webkit-transition: all 0.50s;")
+          div.col-xs-3
+            img(src=image_user)
+            p(style="font-size:1.3em;display:inline-block;") name_user
     div.container
       div.row
-        div.col-xs-2
-          img(src="images/twitter.png" class="img img-responsive")
-        div.col-xs-7
-          h1(id="titulo_view") HashtagTools
-          input(type="search" id="fishtweet" class="form-control")
-        div.col-xs-3
-          img(src=image_user)
-          p(style="font-size:1.3em;display:inline-block;")=name_user
+        div.col-xs-12
+          div#resultado_busqueda_general(style="position:relative;padding:0.5em 0.5em 2em 0.5em;height:600px;overflow-y:scroll;background:linear-gradient(#ffffff,#dde9f4);display:none;")
+    div.container
+      div.row
+        div#panel_alertas(class="col-md-4 col-sm-12 col-xs-12 alert alert-danger" style="border-radius:0px !important;min-height:550px;overflow-y:scroll;")
+          p(style="font-size:1.3em;text-align:center") Alertas          
+          hr
+          ul#listado_alertas.list-group(style="clear:both;")
+        div#panel_detalles(class="col-md-4 col-sm-12 col-xs-12 alert alert-warning" style="border-radius:0px !important;min-height:550px;overflow-y:scroll;")
+          p(style="font-size:1.3em;text-align:center") Detalles          
+          hr   
+          ul#listado_busquedas_detalle.list-group(style="clear:both;")
+        div#panel_busquedas(class="col-md-4 col-sm-12 col-xs-12 alert alert-info" style="border-radius:0px !important;max-height:500px;overflow:scroll;min-height:550px;")
+          p(style="font-size:1.3em;text-align:center") Busquedas
+            button(type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalSearch" style="pading:2px;float:right;margin-bottom:1em;" title="Nueva busqueda avanzada") 
+              span(class="glyphicon glyphicon-plus")
+          hr
+          ul#listado_busquedas.list-group(style="clear:both;")
+            //-foreach	
+    #modalSearch.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel')
+      .modal-dialog(role='document')
+        .modal-content
+          .modal-header
+            button.close(type='button', data-dismiss='modal', aria-label='Close')
+              span(aria-hidden='true') &times;       
+            h4#myModalLabel.modal-title Nueva Busqueda   
+          .modal-body
+            span Nombre identificador de la busqueda
+            form#form_busqueda(action="/app/save_search" method="post")
+              input#nombre(type="text" class="form-control focus_toggle" name="nombre" placeholder="Nombre de la busqueda")
+              hr
+              ul.nav.nav-tabs(role='tablist')
+                li.active(role='presentation')
+                  a(href='#parametros', aria-controls='home', role='tab', data-toggle='tab')
+                    |Criterios de busqueda                
+                li(role='presentation')
+                  a(href='#config', aria-controls='profile', role='tab', data-toggle='tab')
+                   |Configuración de la alerta	
+              .tab-content
+                #parametros.tab-pane.active(role='tabpanel')             
+                  span Palabras
+                  input#palabras(type="text" class="form-control focus_toggle" name="palabras" placeholder="Ej: Futbol")
+                  span Frase
+                  input#frases(type="text" class="form-control focus_toggle" name="frases" placeholder="Ingrese una frase completa")
+                  span Algunas de estas palabras
+                  input#algunas_estas_palabras(type="text" class="form-control focus_toggle" name="algunas_estas_palabras" placeholder="Ingrese una varias palabras sepradas por comas")
+                  span Ninguna de estas palabras
+                  input#ninguna_estas_palabras(type="text" class="form-control focus_toggle" name="ninguna_estas_palabras" placeholder="Ingrese una varias palabras sepradas por comas")
+                  span Hashtags
+                  input#hashtags(type="text" class="form-control focus_toggle" name="hashtags" placeholder="Ingrese una varias palabras sepradas por comas")
+                  span Usuario
+                  input#usuario(type="text" class="form-control focus_toggle" name="usuario" placeholder="Ingrese una varias palabras sepradas por comas")
+                  span Lugar
+                  input#geolocalizacion(type="text" class="form-control focus_toggle" name="geolocalizacion" placeholder="Ingrese una zona Geografica")
+                #config.tab-pane(role="tabpanel")
+                  span Cantidad de tweets
+                  input#cantidad_tweets(type="text" class="form-control focus_toggle" name="cantidad_tweets" placeholder="Ingrese un limite de tweets para la alerta")
+                  span Intervalo de Tiempo
+                  input#intervalo(type="text" class="form-control focus_toggle" name="intervalo" placeholder="Tiempo limite")
+          .modal-footer
+            #mensaje_busqueda.alert.alert-danger(style="text-align:center;display:none;")
+            button.btn.btn-default(type='button', data-dismiss='modal') Cerrar              
+            button#enviar_busqueda.btn.btn-primary(type='button' data-dismiss='modal') Aceptar
+    script(src="/socket.io/socket.io.js")
+    script(src="/js/main.js")	

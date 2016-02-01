@@ -1,12 +1,21 @@
 extends layout
 
 block content
-  div(id="header")
-    div.container
-      div.row
-        div.col-xs-2
-          img(src="images/twitter.png" class="img img-responsive")
-        div.col-xs-6
-          h1(id="titulo_view") HashtagTools
-        div.col-xs-4
-          a(href="/login" class="btn btn-primary btn-lg" style="margin-top:1em") Login con Twitter
+  body(style="background:url('/img/twitter_logo_bg.jpg') !important;background-attachment:fixed;")
+    div(id="header")
+      div.container
+        div.row
+          div.col-xs-2
+            img(src="img/twitter.png" class="img img-responsive")
+          div.col-xs-6
+            h1(id="titulo_view" style="font-family: 'Metrophobic', Arial, serif !important;font-weight:800;font-style: italic;font-size:3.5em;") #HashTagTools
+          div.col-xs-4
+    .container
+      .row
+        .col-xs-12
+          .jumbotron(style="border-radius:0px !important;background:transparent;color:rgba(255,255,255,0.9);")
+            h1 Bienvenido a HashTagTools!
+            p La herramienta de busquedas en twitter mas completa y en tiempo real. 
+              //-a.btn.btn-warning.btn-lg(href='#', role='button' style="margin-right:1.5em;") Try Now !
+            a(href="/login" class="btn btn-warning btn-lg" style="padding:0.5em;font-size:2em;") Login con Twitter y pruebalo
+
