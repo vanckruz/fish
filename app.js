@@ -78,7 +78,7 @@ passport.deserializeUser(function(user, done)
  
 
  app.get("/", function(req,res)
-{
+{       req.session.usuario_logueado = true;
     res.render("index.jade", {title : "Inciar sesión en twitter"});
 });
 
@@ -88,15 +88,24 @@ app.get('/login', passport.authenticate('twitter'));
 //callback donde nos retorna twitter, debemos decirlo en la conf de la app
 
 app.get('/auth/twitter/callback', 
-    passport.authenticate('twitter', { successRedirect: '/app', failureRedirect: '/login' }),
+    passport.authenticate('twitter', { successRedirect: '/logeando', failureRedirect: '/login' }),
     function(req, res) 
     {
         //la autentificación ha sido correcta
         //en req.user tenemos todos los datos del usuario logueado
         //console.log(req.user);        
        // req.session.screen_name = ;
+
+       /**Probando la sesion***/
     }
 );
+
+
+ app.get("/logeando", function(req,res)
+{    
+    req.session.usuario_logueado = true;
+    res.redirect('/app');
+});
 
 
 /*Funcionalidad de ntwitter*/
@@ -131,7 +140,8 @@ app.get("/app", function(req,res)
   //console.log(req.user._json.name);
   //console.log(req.user._json.profile_image_url);
   //console.log(req.user._json.status.profile_background_image_url);
-
+console.log("usuario logueado: "+req.session.usuario_logueado);
+if(req.session.usuario_logueado == true){
 io.on('connection', function (socket) {
  
   /****Busqueda General****/
@@ -308,13 +318,17 @@ var busqueda5=0;
   res.render("app.jade", 
   {
     title               : "HashtagTool",
-    /*id_user             : req.user._json.id,
+    id_user             : req.user._json.id,
     name_user           : req.user._json.name,
     screen_name         : req.user._json.screen_name,
-    image_user          : req.user._json.profile_image_url*/
+    image_user          : req.user._json.profile_image_url
   });
+}else{
+      res.redirect('/login');//se redirecciona al inicio
+}
 
 });
+/*****Fin ruta app*****/
 
 app.post("/app/save_search", function(req,res)
 { 

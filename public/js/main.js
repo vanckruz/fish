@@ -101,9 +101,9 @@ $('#buscador_global').keypress(function(e){
 					alerta_item_busqueda +=	"<div style='float:right;margin-left:1em;'><span class='badge editar_alerta' style='cursor:pointer;' title='Editar Alerta'><span class='glyphicon glyphicon-pencil'></span></span>";
 					alerta_item_busqueda +=	"<span class='badge eliminar_alerta' style='cursor:pointer;' title='Eliminar Alerta'><span class='glyphicon glyphicon-remove'></span></span><div></li>";
 				*/
-				var detalle_item_busqueda  = "<li class='list-group-item' id='itemDetalle_"+contador_items_busquedas+"' style='cursor:pointer;' >";
+				var detalle_item_busqueda  = "<li class='list-group-item' id='itemDetalle_"+contador_items_busquedas+"' style='cursor:pointer;display:none;' >";
 					detalle_item_busqueda += "<div class='detalle_list' style='padding:5px;overflow:hidden;'><div style='float:left;width: 70%;'>"+nombre_busqueda.val()+"</div><div style='float:right;margin-left:1em;'><span class='badge item_contador' style='float:right;'></span></div></div>";
-					detalle_item_busqueda += "<div class='view_detalle' style='display:none;max-height:400px;border-top:1px dotted gray;padding:5px;overflow-y:scroll;'></div>";
+					detalle_item_busqueda += "<div class='view_detalle' style='max-height:400px;border-top:1px dotted gray;padding:5px;overflow-y:scroll;'></div>";
 					detalle_item_busqueda += "</li>";
 				
 
@@ -119,7 +119,7 @@ $('#buscador_global').keypress(function(e){
 	});
 		socket.on('tweets_'+contador_items_busquedas, function (data) {
 			//console.log(data);
-		var html_busquedas  = '<div class="media" style="border:1px solid lightgray;padding:1em;"><div class="media-left"><a href="#">';
+		var html_busquedas  = '<div class="media items_buscadores" style="border:1px solid lightgray;padding:1em;"><div class="media-left"><a href="#">';
 		  	html_busquedas += '<img class="media-object img img-circle" src="'+data.img_perfil+' "></a></div>';
 		  	html_busquedas += '<div class="media-body"><h4 class="media-heading">@'+data.user+'</h4>';
 		  	html_busquedas += '<p>'+data.text+'</p></div></div>';
@@ -127,18 +127,22 @@ $('#buscador_global').keypress(function(e){
 
   		if(data.num_tweets == data.alerta ){
 
-			var alerta_item_busqueda  = "<li class='list-group-item' id='itemAlerta_"+contador_items_busquedas+"'  style='overflow:hidden;'>";
-			alerta_item_busqueda +=	"<div style='float:left;width: 70%;'>"+data.nombre+" - Tweet Alert: "+data.alerta+"</div>";
+			var alerta_item_busqueda  = "<li class='list-group-item alerta_hover' id='itemAlerta_"+contador_items_busquedas+"'  style='overflow:hidden;cursor:pointer' title='Ver todos los tweets de la alerta'>";
+			alerta_item_busqueda +=	"<div style='float:left;width: 70%;'>"+data.nombre+" -# Alert Tweet: "+data.alerta+"</div>";
 			//alerta_item_busqueda +=	"<div style='float:right;margin-left:1em;'><span class='badge editar_alerta' style='cursor:pointer;' title='Editar Alerta'><span class='glyphicon glyphicon-pencil'></span></span>";
 			alerta_item_busqueda +=	"<span class='badge eliminar_alerta' style='cursor:pointer;' title='Eliminar Alerta'><span class='glyphicon glyphicon-remove'></span></span><div></li>";	
 
-			$("#listado_alertas").html(alerta_item_busqueda);
+			$("#listado_alertas").prepend(alerta_item_busqueda);
+			//$(".items_buscadores").show("fast");
+			$("#itemAlerta_"+contador_items_busquedas).on("click",function(){
+				$("#itemDetalle_"+contador_items_busquedas).show("fast");
+			});
 
 		}	
 
 		$("#panel_alertas #listado_alertas ").on("click","li .eliminar_alerta",function(){
 			$(this).parent().remove();
-			console.log("jfngjfdngjkndfjkngjknfk");
+			//console.log("jfngjfdngjkndfjkngjknfk");
 		});			
 
 
