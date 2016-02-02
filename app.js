@@ -141,7 +141,9 @@ app.get("/app", function(req,res)
   //console.log(req.user._json.profile_image_url);
   //console.log(req.user._json.status.profile_background_image_url);
 console.log("usuario logueado: "+req.session.usuario_logueado);
+
 if(req.session.usuario_logueado == true){
+ 
 io.on('connection', function (socket) {
  
   /****Busqueda General****/
@@ -323,9 +325,11 @@ var busqueda5=0;
     screen_name         : req.user._json.screen_name,
     image_user          : req.user._json.profile_image_url
   });
+ 
 }else{
       res.redirect('/login');//se redirecciona al inicio
 }
+
 
 });
 /*****Fin ruta app*****/
