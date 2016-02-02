@@ -21,15 +21,15 @@ block content
           div#resultado_busqueda_general(style="position:relative;padding:0.5em 0.5em 2em 0.5em;height:600px;overflow-y:scroll;background:linear-gradient(#ffffff,#dde9f4);display:none;")
     div.container
       div.row
-        div#panel_alertas(class="col-md-4 col-sm-12 col-xs-12 alert alert-danger" style="border-radius:0px !important;min-height:550px;overflow-y:scroll;")
+        div#panel_alertas(class="col-md-4 col-sm-12 col-xs-12 alert alert-danger" style="border-radius:0px !important;height:550px;overflow-y:scroll;")
           p(style="font-size:1.3em;text-align:center") Alertas          
           hr
           ul#listado_alertas.list-group(style="clear:both;")
-        div#panel_detalles(class="col-md-4 col-sm-12 col-xs-12 alert alert-warning" style="border-radius:0px !important;min-height:550px;overflow-y:scroll;")
+        div#panel_detalles(class="col-md-4 col-sm-12 col-xs-12 alert alert-warning" style="border-radius:0px !important;height:550px;overflow-y:scroll;")
           p(style="font-size:1.3em;text-align:center") Detalles          
-          hr   
-          ul#listado_busquedas_detalle.list-group(style="clear:both;")
-        div#panel_busquedas(class="col-md-4 col-sm-12 col-xs-12 alert alert-info" style="border-radius:0px !important;max-height:500px;overflow:scroll;min-height:550px;")
+          hr
+          #listado_busquedas_detalle(style="clear:both;")
+        div#panel_busquedas(class="col-md-4 col-sm-12 col-xs-12 alert alert-info" style="border-radius:0px !important;height:550px;overflow:scroll;")
           p(style="font-size:1.3em;text-align:center") Busquedas
             button(type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalSearch" style="pading:2px;float:right;margin-bottom:1em;" title="Nueva busqueda avanzada") 
               span(class="glyphicon glyphicon-plus")

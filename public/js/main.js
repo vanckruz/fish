@@ -106,10 +106,12 @@ $('#buscador_global').keypress(function(e){
 					detalle_item_busqueda += "<div class='view_detalle' style='max-height:400px;border-top:1px dotted gray;padding:5px;overflow-y:scroll;'></div>";
 					detalle_item_busqueda += "</li>";*/				
 
-				var detalle_item_busqueda  = "<li class='list-group-item' id='itemDetalle_"+contador_items_busquedas+"' style='cursor:pointer;display:none;' >";
+				var detalle_item_busqueda  = "<ul id='itemDetalle_"+contador_items_busquedas+"' class='list-group bandera_detalle' style='display:none;'>";
+				    detalle_item_busqueda += "<li class='list-group-item' style='cursor:pointer;' >";
 					detalle_item_busqueda += "<div class='detalle_list' style='padding:5px;overflow:hidden;'><div style='float:left;width: 70%;'>"+nombre_busqueda.val()+"</div><div style='float:right;margin-left:1em;'><span class='badge item_contador' style='float:right;'></span></div></div>";
 					detalle_item_busqueda += "<div class='view_detalle' style='max-height:400px;border-top:1px dotted gray;padding:5px;overflow-y:scroll;'></div>";
-					detalle_item_busqueda += "</li>";
+					detalle_item_busqueda += "</li></ul>";
+
 				
 
 				$("#listado_busquedas").prepend(item_busqueda);
@@ -132,7 +134,7 @@ $('#buscador_global').keypress(function(e){
 
   		if(data.num_tweets == data.alerta ){
 
-			var alerta_item_busqueda = "<li class='list-group-item alerta_hover' id='itemAlerta_"+contador_items_busquedas+"'  style='overflow:hidden;cursor:pointer' title='Ver todos los tweets de la alerta'>";
+			var alerta_item_busqueda = "<li class='list-group-item alerta_hover bandera_alerta primer_click' id='itemAlerta_"+contador_items_busquedas+"' data-num_item='"+contador_items_busquedas+"' style='overflow:hidden;cursor:pointer' title='Ver todos los tweets de la alerta'>";
 			alerta_item_busqueda +=	"<div style='float:left;width: 70%;'>"+data.nombre+" -# Alert Tweet: "+data.alerta+"</div>";
 			//alerta_item_busqueda += "<div style='float:right;margin-left:1em;'><span class='badge editar_alerta' style='cursor:pointer;' title='Editar Alerta'><span class='glyphicon glyphicon-pencil'></span></span>";
 			alerta_item_busqueda +=	"<span class='badge eliminar_alerta' style='cursor:pointer;' title='Eliminar Alerta'><span class='glyphicon glyphicon-remove'></span></span><div></li>";	
@@ -140,21 +142,44 @@ $('#buscador_global').keypress(function(e){
 			$("#listado_alertas").prepend(alerta_item_busqueda);
 			//$(".items_buscadores").show("fast");
 
-			$("#itemAlerta_"+contador_items_busquedas).on("click",function(){
-				
+			
+			//$("#itemAlerta_"+num_alerta).on("click",function(){
+			$(".primer_click").on("click",function(){
+			
+			var num_alerta = $(this).attr("data-num_item");
+
+				console.log(num_alerta);
+
+				$(".bandera_alerta").removeClass("alerta_active_true");
+
 				$(this).addClass("alerta_active_true");
 
 				if( $(this).hasClass("alerta_active_true") ){
 
+					$(".bandera_alerta").removeClass("alerta_active");
 					$(this).toggleClass("alerta_active");
 
+/***************************Probando ******************************/
+				//$("#itemDetalle_"+num_alerta).toggleClass("detalle_activo_true");
+				$("#itemDetalle_"+num_alerta).addClass("detalle_activo_true");
+
+				//$(".bandera_detalle").not(".detalle_activo_true").hide();
+
+					if( $("#itemDetalle_"+num_alerta).hasClass("detalle_activo_true") ){
+
+						$(".bandera_detalle").hide();
+						$("#itemDetalle_"+num_alerta).slideToggle("fast");
+						//$(".bandera_detalle").removeClass("detalle_activo_true");
+					}	
+
 				}else{
+					//$(".bandera_detalle").not(".detalle_activo_true").hide();
 					$(".alerta_hover").removeClass("alerta_active");
 				}			
+/***************************Probando (despuesdelse)******************************/
 
-				$("#itemDetalle_"+contador_items_busquedas).show("fast");
 
-				console.log( $(this).attr("class") );
+				//console.log( $(this).attr("class") );
 
 			});		
 
@@ -185,11 +210,11 @@ $('#buscador_global').keypress(function(e){
 				});
 				
 
-				$(".list-group-item .detalle_list").on("click",function(){
+				/*$(".list-group-item .detalle_list").on("click",function(){
 					//$(this).unbind("click");
 					$(this).siblings(".view_detalle").slideToggle("fast");
 					console.log($(this).siblings(".view_detalle"));
-				});
+				});*/
 
 				/*Limpieza de campos*/
 				nombre_busqueda.val("");
