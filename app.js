@@ -1,7 +1,17 @@
+/*
+* Demo por Jhonny Vasquez
+* En nodejs con el framework express y socket.io
+* y la libreria ntwitter y passport
+* Enero 2015
+* Repositorio en bitbucket:
+* https://ga8r3lProtos@bitbucket.org/protostech/hashtagtool.git
+* usuario : ga8r3lProtos
+* Clave   : Pr0t0s123
+*/
 var util    = require('util'),
-path        = require('path'),
-express     = require('express'), 
+path        = require('path'), 
 http        = require('http'),
+express     = require('express'),
 app         = express(),
 server      = http.createServer(app),
 twitter     = require('ntwitter');
@@ -52,6 +62,13 @@ app.use(passport.session());
  
  
 /*Funcionalidad de login-twitter*/
+/*
+*Aqui van los token de twitter consumer key y consumerScret hay que
+*registrar una aplicacion en http://dev.twitter.com/app
+*y ellos te dan esos token
+*Tienen que registar una apliacion en twitter ya que estos token eran de mi cuenta 
+* de twitter
+**/
 passport.use(new TwitterStrategy({
         consumerKey: 'FqwMQS7ptmxHY3MROO0xtpUsu',
         consumerSecret: 'WGjgymhedSg4Z7PFJyjCgsBNsPcXXEpdts1HFOtRBLexNWfTsX',
@@ -168,7 +185,10 @@ io.on('connection', function (socket) {
   });
   /****Busqueda General****/
 
-/*********************************busquedas multiples***********************************************/
+/*********************************busquedas multiples (Estaticas hasta 5)***********************************************/
+/*
+*Para hacerlo mas dinamico investigar sobre los rooms en socket.io de nodejs
+*/
 var busqueda1=0;
 var busqueda2=0;
 var busqueda3=0;
